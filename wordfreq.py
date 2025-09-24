@@ -59,6 +59,8 @@ test_word_list = ["z","a","b","b","b","b","c","."]
 
 
 
+
+
 def countWords(word_list,stop_words_file):
     stop_words=[]
     with open(stop_words_file) as f:
@@ -83,4 +85,39 @@ def countWords(word_list,stop_words_file):
 countWords(test_word_list,"eng_stopwords.txt")
 
 
+def tokenize(lines):
+    word_count = 0
+    word_count_list = []
+    for line in lines:
+        for word in line.split():
+           while word and not word[0].isalnum():
+               print(f"symbol : {word[0]}")
+               word_count += 1
+               word_count_list += word[0]
+               word = word[1:]
+           while word and not word[-1].isalnum():
+               last = word[-1]
+               word = word[:-1]
+               if word: 
+                  if word.isdigit():
+                      print(f"number : {word}")
+                      word_count += 1
+                      word_count_list += word
+                  else:
+                      print(f"word : {word}")
+                      word_count += 1
+                      word_count_list += word
+           if word:
+               if word.isdigit():
+                   print(f"number : {word}")
+                   word_count += 1
+                   word_count_list += word
+               else:   
+                   print(f"word : {word}")
+                   word_count += 1
+                   word_count_list += word
+    print("Word count : " + str(word_count))  
+    print(word_count_list)
+         
 
+tokenize(document1)
